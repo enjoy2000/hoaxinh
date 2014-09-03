@@ -1,0 +1,17 @@
+h1 span.day{
+	color: #D621CF;
+}
+.jumbotron .pull-left p span{
+	color: #D621CF;
+}
+.profile .name{
+	font-size: 40px;
+	color: #29c;
+}
+.profile .name span{
+	color: #D621CF;
+	font-size: 60px;
+}
+.profile .fb-avatar > img{
+	border: solid 1px #29c;
+}

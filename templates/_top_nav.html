@@ -1,0 +1,32 @@
+{% load url from future %}
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="/image/" class="navbar-brand">Hòa Xinh</a>
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a id="add-photos-btn" href="#">Add Photos</a>
+                    <div class="hidden">
+                        <input id="add-photos" type="file" name="name" multiple />
+                    </div>
+                </li>
+                <li>
+                    <a href="{% url 'list' %}">Blog</a>
+                </li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="{% url 'list' %}">Photos</a></li>
+                <li><a id="clear-photos" href="{% url 'clear' %}">Clear Photos</a></li>
+            </ul>
+
+        </div>
+    </div>
+</div>

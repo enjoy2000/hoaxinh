@@ -1,0 +1,5 @@
+Django==1.6.5
+mysql-python==1.2.5
+pil==1.1.7
+selenium==2.42.1
+sorl-thumbnail==11.12

@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+
+{% block title %}Đẹp như chưa từng đẹp{% endblock %}
+{% block page-id %}image-list{% endblock %}
+
+{% block head-css %}
+	{{ block.super }}
+        <link  rel="stylesheet" type="text/css" href="{% static 'fancybox/jquery.fancybox.css' %}" />
+{% endblock %}
+
+{% block content %}
+		<!-- List of uploaded documents -->
+		{% if paginator.num_pages > 0 %}
+			<!-- <div class="row">
+                {% for document in documents %}
+                    <div class="col-sm-6 col-lg-3 photo-thumb">
+                    	{% thumbnail document.name "300" crop="center" as im %}
+	                    	<a class="fancybox" rel="gallery1" href="{{ document.name.url }}">
+							    <img src="{{ im.url }}" alt="" />
+							</a>
+						{% endthumbnail %}
+						<a title="Delete" data-photo="{{ document.id }}" class="delete-photo" href="{% url "delete" %}?id={{ document.id }}">Delete</a>
+                    </div>
+                    {% if forloop.counter|divisibleby:4 and forloop.last == False %}
+                    </div><div class="row">
+                    {% endif %}
+                {% endfor %}
+            </div> -->
+            <div class="loading-animation"><div class="loading-icon"></div></div>
+            <!-- <ul class="pager">
+		        {% if documents.has_previous %}
+			        <li>
+			            <a href="?page={{ documents.previous_page_number }}"><span>Previous</span></a>
+			        </li>
+		        {% endif %}
+
+			        <li>
+				        <span class="current">
+				            Page {{ documents.number }} of {{ documents.paginator.num_pages }}.
+				        </span>
+			    	</li>
+
+		        {% if documents.has_next %}
+			        <li>
+			            <a href="?page={{ documents.next_page_number }}"><span>Next</span></a>
+			        </li>
+		        {% endif %}
+			</ul> -->
+		{% else %}
+			<p>No documents.</p>
+		{% endif %}
+{% endblock %}
+
+{% block footer-js %}
+	{{ block.super }}
+        <script type="text/javascript" src="{% static 'fancybox/jquery.fancybox.js' %}"></script>
+        <script type="text/javascript">
+        	$(document).ready(function(){
+        		// Fancybox
+        		$('a.fancybox').fancybox();
+
+        		// Delete hover photo
+        		$('a.delete-photo').click(function(e){
+        			//e.preventDefault();
+        		});
+
+        		/* Ajax loading pager */
+    			var loaded = 0;
+    			var process = false;
+    			var total_page = {{ paginator.num_pages }};
+    			var loading_animation = $('.loading-animation');
+    			loadPages();
+    			// Detect scroll event
+        		$(window).scroll(function(){
+        			if($(window).scrollTop() + $(window).height() == $(document).height()){
+        				loadPages();
+        			}
+        		});
+
+        		function loadPages(){
+        			// Check there is page for load and ajax in process
+    				if(loaded < total_page && process == false){
+    					process = true; // define ajax is in process
+    					loading_animation.show(); //show animation
+
+    					$.ajax({
+    						url: '/image/ajaxload/',
+    						data: {
+    							page: loaded+1,
+    							csrfmiddlewaretoken: getCookie('csrftoken'),
+    						},
+    						type: 'POST',
+    						dataType: 'text',
+    						success: function(data){
+    							loaded++; // loaded increment
+    							loading_animation.before(data);
+    							loading_animation.hide(); // hide animation
+    							process = false; // end ajax process
+    						},
+    					});
+    				}
+        		}
+        	});
+        </script>
+{% endblock %}

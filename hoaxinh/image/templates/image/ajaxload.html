@@ -1,0 +1,18 @@
+{% load thumbnail %}
+{% if documents %}
+	<div class="row">
+        {% for document in documents %}
+            <div class="col-sm-6 col-lg-3 photo-thumb">
+            	{% thumbnail document.name "300" crop="center" as im %}
+                	<a class="fancybox" rel="gallery1" href="{{ document.name.url }}">
+					    <img src="{{ im.url }}" alt="" />
+					</a>
+				{% endthumbnail %}
+				<a title="Delete" data-photo="{{ document.id }}" class="delete-photo" href="{% url "delete" %}?id={{ document.id }}">Delete</a>
+            </div>
+            {% if forloop.counter|divisibleby:4 and forloop.last == False %}
+            </div><div class="row">
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}
