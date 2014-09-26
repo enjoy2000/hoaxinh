@@ -8,6 +8,8 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
-	(r'^image/', include('hoaxinh.image.urls')),
+	(r'^image/', include('image.urls')),
+	(r'^blog/', include('blog.urls')),
+	(r'^accounts/', include('registration.backends.default.urls')),
 	(r'^$', RedirectView.as_view(url='/image/')),  # Just for ease of use.
 ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

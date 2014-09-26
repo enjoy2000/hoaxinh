@@ -1,0 +1,21 @@
+{% extends "accounts/base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans 'Your profile' %}{% endblock %}
+
+{% block accounts-content %}
+<div class="profile-page">
+    <h1>{% trans 'Update profile' %}</h1>
+    <form method="post" id="profile_form" class="form-horizontal">
+        {% csrf_token %}
+        <fieldset>
+            {% include "general/form_render.html" with form=profile_form %}
+            <div class="form-group">
+                <div class="col-lg-9 col-lg-offset-3">
+                    <button type="submit" id="id_login" class="btn btn-primary">{% trans 'Update profile' %}</button>
+                </div>
+              </div>
+        </fieldset>
+    </form>
+</div>
+{% endblock %}

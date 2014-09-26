@@ -12,19 +12,24 @@
         <div class="navbar-collapse collapse" id="navbar-main">
             <ul class="nav navbar-nav">
                 <li>
+                    <a href="{% url 'blog-index' %}">Blog</a>
+                </li>
+                <li><a href="{% url 'list' %}">Photos</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                {% if user.is_authenticated %}
+                <li>
                     <a id="add-photos-btn" href="#">Add Photos</a>
                     <div class="hidden">
                         <input id="add-photos" type="file" name="name" multiple />
                     </div>
                 </li>
-                <li>
-                    <a href="{% url 'list' %}">Blog</a>
-                </li>
-            </ul>
-
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="{% url 'list' %}">Photos</a></li>
                 <li><a id="clear-photos" href="{% url 'clear' %}">Clear Photos</a></li>
+                <li><a  href="{% url 'auth_logout' %}">Logout</a></li>
+                {% else %}
+                <li><a  href="{% url 'auth_login' %}">Login</a></li>
+                {% endif %}
             </ul>
 
         </div>

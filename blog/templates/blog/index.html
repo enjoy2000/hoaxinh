@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+
+{% block title %}Love notes{% endblock %}
+{% block page-id %}blog-index{% endblock %}
+
+{% block head-css %}
+	{{ block.super }}
+        <link  rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}" />
+{% endblock %}
+
+{% block content %}
+		<!-- List of uploaded documents -->
+		{% if blogs %}
+			<div class="row">
+                {% for blog in blogs %}
+                    <div class="col-sm-6 col-lg-3 photo-thumb">
+                    	{% thumbnail document.name "300" crop="center" as im %}
+	                    	<a class="fancybox" rel="gallery1" href="{{ document.name.url }}">
+							    <img src="{{ im.url }}" alt="" />
+							</a>
+						{% endthumbnail %}
+						<a title="Delete" data-photo="{{ document.id }}" class="delete-photo" href="{% url "delete" %}?id={{ document.id }}">Delete</a>
+                    </div>
+                    {% if forloop.counter|divisibleby:4 and forloop.last == False %}
+                    </div><div class="row">
+                    {% endif %}
+                {% endfor %}
+            </div>
+            <ul class="pager">
+		        {% if documents.has_previous %}
+			        <li>
+			            <a href="?page={{ documents.previous_page_number }}"><span>Previous</span></a>
+			        </li>
+		        {% endif %}
+
+			        <li>
+				        <span class="current">
+				            Page {{ documents.number }} of {{ documents.paginator.num_pages }}.
+				        </span>
+			    	</li>
+
+		        {% if documents.has_next %}
+			        <li>
+			            <a href="?page={{ documents.next_page_number }}"><span>Next</span></a>
+			        </li>
+		        {% endif %}
+			</ul>
+		{% else %}
+			<p>No blogs.</p>
+		{% endif %}
+{% endblock %}
+
+{% block footer-js %}
+	{{ block.super }}
+        
+{% endblock %}

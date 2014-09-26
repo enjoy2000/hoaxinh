@@ -38,9 +38,23 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'hoaxinh.image',
+    'image',
+    'blog',
+    'couple',
     'sorl.thumbnail',
+    'registration',
 )
+
+# Register config
+ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window; you may, of course, use a different value.
+REGISTRATION_OPEN = True
+# Mail config
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
+EMAIL_USE_TLS = False
+DEFAULT_FROM_EMAIL = 'testing@example.com'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -102,7 +116,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     realpath("templates"),
-    realpath("hoaxinh/image/templates/image")
+    realpath("image/templates/image")
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -111,7 +125,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.core.context_processors.media',
     'django.core.context_processors.static',
+    'django.contrib.messages.context_processors.messages',
   )
 
 TASK_UPLOAD_FILE_TYPES = ['image', ]
 TASK_UPLOAD_FILE_MAX_SIZE = "5242880"
+
+# Messages Storage
+MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'

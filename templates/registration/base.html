@@ -1,0 +1,51 @@
+{% load url from future %}
+{% load staticfiles %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xml:lang="{{ LANGUAGE_CODE }}" lang="{{ LANGUAGE_CODE }}" version="-//W3C//DTD XHTML 1.1//EN" xmlns="http://www.w3.org/1999/xhtml" ng-app="tangthuvien">
+    <head>
+        <title>Hòa Xinh - {% block title %}{% endblock %}</title>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <meta http-equiv="cache-control" content="public" />
+        <meta name="robots" content="follow, all" />
+        <meta name="language" content="{{ LANGUAGE_CODE }}" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content="{% block meta-description %}Em yeu dep gai :v{% endblock %}" />
+        <meta name="keywords" content="{% block meta-keywords %}hoaxinh, love cms, cms for lovers, lovers cms{% endblock %}" />
+        <meta name="author" content="Enjoy" />
+        {% block meta %}{% endblock %}
+        <link rel="pingback" href="/xmlrpc/" />
+        <link rel="shortcut icon" href="/favicon.ico" />
+        {% block head-css %}
+            <link rel="stylesheet" type="text/css" href="{% static 'css/cerulean_bootstrap.min.css' %}" />
+            <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}" />
+        {% endblock %}
+    </head>
+    <body id="{% block page-id %}{% endblock %}">
+        {% include '_top_nav.html' %}
+        <div class="container">
+            {% include '_top_banner.html' %}
+            {% block slider %}{% endblock %}
+            <div id="content" class="hfeed">
+                {% include '_notification.html' %}
+
+                {% block content %}
+
+                {% endblock %}
+            </div>
+        </div>
+
+        <footer>
+            <div class="footer">
+               <div class="container narrow row-fluid">
+                  {% include '_footer_nav.html' %}
+               </div>
+            </div>
+        </footer>
+
+    {% block footer-js %}
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="{% static 'js/function.js' %}"></script>
+    {% endblock %}
+    </body>
+</html>

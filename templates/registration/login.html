@@ -1,0 +1,31 @@
+{% extends "registration/base.html" %}
+
+{% block title %}Log in{% endblock %}
+
+{% block content %}
+
+<h1>Log in</h1>
+
+{% if form.errors %}
+<p class="text-danger">Please correct the errors below:</p>
+{% endif %}
+
+<form class="form-inline" fole="form" method="post" action="?next={{ next|default:"/" }}">{% csrf_token %}
+<dl class="dl-horizontal control-group{% if form.username.errors %} has-error{% endif %}">
+<dt><label for="id_username">Username:</label>{% if form.username.errors %} <p class="control-label">{{ form.username.errors|join:", " }}</p>{% endif %}</dt>
+<dd>{{ form.username }}</dd>
+</dl>
+<dl class="dl-horizontal control-group{% if form.password.errors %} has-error{% endif %}">
+<dt><label for="id_password">Password:</label>{% if form.password.errors %} <p class="control-label">{{ form.password.errors|join:", " }}</p>{% endif %}</dt>
+<dd>{{ form.password }}</dd>
+</dl>
+<dl>
+<dt><input class="btn btn-primary" type="submit" value="Log in" /></dt>
+</dl>
+</form>
+{% endblock %}
+
+{% block content-related %}
+<p>If you don't have an account, you can <a href="/accounts/register/">sign
+up</a> for one.
+{% endblock %}
